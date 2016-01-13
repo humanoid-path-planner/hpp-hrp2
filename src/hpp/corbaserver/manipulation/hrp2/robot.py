@@ -16,7 +16,7 @@
 # hpp-hrp2.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-from hpp.corbaserver.manipulation.robot import Robot as Parent
+from hpp.corbaserver.manipulation.robot import HumanoidRobot as Parent
 
 class Robot (Parent):
     packageName = "hrp2_14_description"
@@ -24,6 +24,7 @@ class Robot (Parent):
     urdfSuffix = ""
     srdfSuffix = ""
     rootJointType = "freeflyer"
+    humanoid = True
     halfSitting = \
         {"base_joint_xyz": (0.0, 0.0, 0.648702),
          "base_joint_SO3": (1.0, 0.0, 0.0, 0.0),
@@ -87,7 +88,7 @@ class Robot (Parent):
 
     ## Virtual function to load the robot model
     def loadModel (self, robotName, rootJointType):
-        self.loadHumanoidModel \
+        self.insertHumanoidModel \
             (robotName, rootJointType, self.packageName, self.urdfName,
              self.urdfSuffix, self.srdfSuffix)
 
