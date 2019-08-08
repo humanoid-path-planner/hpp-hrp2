@@ -76,7 +76,7 @@ class Robot (Parent):
     def __init__ (self, compositeName, robotName):
         Parent.__init__ (self, compositeName, robotName, self.rootJointType)
         hs = self.halfSitting.copy ()
-        for joint, value in hs.iteritems ():
+        for joint, value in hs.items ():
             self.halfSitting [self.displayName + "/" + joint] = value
         self.rightWrist = self.displayName + "/RARM_JOINT5"
         self.leftWrist  = self.displayName + "/LARM_JOINT5"
@@ -95,7 +95,7 @@ class Robot (Parent):
     def getInitialConfig (self):
         q = []
         for n in self.jointNames:
-            if self.halfSitting.has_key (n):
+            if n in self.halfSitting:
                 dof = self.halfSitting [n]
                 if type (dof) is tuple:
                     q += dof

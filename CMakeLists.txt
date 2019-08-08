@@ -19,15 +19,16 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 INCLUDE(cmake/base.cmake)
-INCLUDE(cmake/python.cmake)
+INCLUDE(cmake/hpp.cmake)
+INCLUDE(cmake/hpp/python.cmake)
 
 SET(PROJECT_NAME hpp-hrp2)
 SET(PROJECT_DESCRIPTION "Data specific to hrp2 robot for hpp-corbaserver")
 SET(PROJECT_URL "")
 
-SETUP_PROJECT()
+SETUP_HPP_PROJECT()
 
-FINDPYTHON()
+HPP_FINDPYTHON()
 ADD_REQUIRED_DEPENDENCY ("hpp-corbaserver >= 3")
 ADD_OPTIONAL_DEPENDENCY ("hpp-manipulation-corba")
 
@@ -44,4 +45,4 @@ IF (HPP_MANIPULATION_CORBA_FOUND)
     DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/manipulation/hrp2
     )
 ENDIF ()
-SETUP_PROJECt_FINALIZE()
+SETUP_HPP_PROJECT_FINALIZE()
