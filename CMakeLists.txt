@@ -18,17 +18,19 @@
 # Requires at least CMake 2.6 to configure the package.
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-INCLUDE(cmake/base.cmake)
-INCLUDE(cmake/hpp.cmake)
-INCLUDE(cmake/hpp/python.cmake)
-
 SET(PROJECT_NAME hpp-hrp2)
 SET(PROJECT_DESCRIPTION "Data specific to hrp2 robot for hpp-corbaserver")
 SET(PROJECT_URL "")
 
-SETUP_HPP_PROJECT()
+INCLUDE(cmake/base.cmake)
+INCLUDE(cmake/hpp.cmake)
+INCLUDE(cmake/python.cmake)
 
-HPP_FINDPYTHON()
+# Tell CMake that we compute the PROJECT_VERSION manually.
+CMAKE_POLICY(SET CMP0048 OLD)
+PROJECT(${PROJECT_NAME})
+
+FINDPYTHON()
 ADD_REQUIRED_DEPENDENCY ("hpp-corbaserver >= 3")
 ADD_OPTIONAL_DEPENDENCY ("hpp-manipulation-corba")
 
@@ -45,4 +47,3 @@ IF (HPP_MANIPULATION_CORBA_FOUND)
     DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/manipulation/hrp2
     )
 ENDIF ()
-SETUP_HPP_PROJECT_FINALIZE()
