@@ -16,19 +16,16 @@
 # <http://www.gnu.org/licenses/>.
 
 # Requires at least CMake 2.6 to configure the package.
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 SET(PROJECT_NAME hpp-hrp2)
 SET(PROJECT_DESCRIPTION "Data specific to hrp2 robot for hpp-corbaserver")
-SET(PROJECT_URL "")
 
-INCLUDE(cmake/base.cmake)
 INCLUDE(cmake/hpp.cmake)
 INCLUDE(cmake/python.cmake)
 
-# Tell CMake that we compute the PROJECT_VERSION manually.
-CMAKE_POLICY(SET CMP0048 OLD)
-PROJECT(${PROJECT_NAME})
+COMPUTE_PROJECT_ARGS(PROJECT_ARGS LANGUAGES CXX)
+PROJECT(${PROJECT_NAME} ${PROJECT_ARGS})
 
 FINDPYTHON()
 ADD_REQUIRED_DEPENDENCY ("hpp-corbaserver >= 3")
