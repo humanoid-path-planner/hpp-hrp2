@@ -1,5 +1,5 @@
-# Copyright (c) 2014 CNRS
-# Author: Florent Lamiraux
+# Copyright (c) 2014, 2020 CNRS
+# Author: Florent Lamiraux, Guilhem Saurel
 #
 # This file is part of hpp-hrp2.
 # hpp-hrp2 is free software: you can redistribute it
@@ -15,11 +15,12 @@
 # hpp-hrp2.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-# Requires at least CMake 2.6 to configure the package.
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
 
 SET(PROJECT_NAME hpp-hrp2)
 SET(PROJECT_DESCRIPTION "Data specific to hrp2 robot for hpp-corbaserver")
+
+SET(PROJECT_USE_CMAKE_EXPORT TRUE)
 
 INCLUDE(cmake/hpp.cmake)
 INCLUDE(cmake/python.cmake)
@@ -28,19 +29,18 @@ COMPUTE_PROJECT_ARGS(PROJECT_ARGS LANGUAGES CXX)
 PROJECT(${PROJECT_NAME} ${PROJECT_ARGS})
 
 FINDPYTHON()
-ADD_REQUIRED_DEPENDENCY ("hpp-corbaserver >= 3")
-ADD_OPTIONAL_DEPENDENCY ("hpp-manipulation-corba")
 
 INSTALL(FILES
   ${PROJECT_SOURCE_DIR}/src/hpp/corbaserver/hrp2/robot.py
   ${PROJECT_SOURCE_DIR}/src/hpp/corbaserver/hrp2/__init__.py
   DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/hrp2
-)
+  )
 
-IF (HPP_MANIPULATION_CORBA_FOUND)
-  INSTALL (FILES
-    ${PROJECT_SOURCE_DIR}/src/hpp/corbaserver/manipulation/hrp2/robot.py
-    ${PROJECT_SOURCE_DIR}/src/hpp/corbaserver/manipulation/hrp2/__init__.py
-    DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/manipulation/hrp2
-    )
-ENDIF ()
+INSTALL(FILES
+  ${PROJECT_SOURCE_DIR}/src/hpp/corbaserver/manipulation/hrp2/robot.py
+  ${PROJECT_SOURCE_DIR}/src/hpp/corbaserver/manipulation/hrp2/__init__.py
+  DESTINATION ${PYTHON_SITELIB}/hpp/corbaserver/manipulation/hrp2
+  )
+
+ADD_LIBRARY(${PROJECT_NAME} INTERFACE)
+INSTALL(TARGETS ${PROJECT_NAME} EXPORT ${TARGETS_EXPORT_NAME} DESTINATION lib)
